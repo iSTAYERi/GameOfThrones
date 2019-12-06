@@ -1,4 +1,4 @@
-package ru.skillbranch.gameofthrones.ui.main
+package ru.skillbranch.gameofthrones.viewmodels
 
 import androidx.lifecycle.ViewModel
 

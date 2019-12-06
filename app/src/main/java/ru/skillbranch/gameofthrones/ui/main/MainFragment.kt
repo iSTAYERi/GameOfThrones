@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import ru.skillbranch.gameofthrones.R
+import ru.skillbranch.gameofthrones.viewmodels.MainViewModel
 
 class MainFragment : Fragment() {
 
