@@ -1,32 +1,31 @@
-package ru.skillbranch.gameofthrones.ui.main
+package ru.skillbranch.gameofthrones.ui.character
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.skillbranch.gameofthrones.R
-import ru.skillbranch.gameofthrones.viewmodels.MainViewModel
+import ru.skillbranch.gameofthrones.viewmodels.CharacterViewModel
 
-class MainFragment : Fragment() {
+class CharacterFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = CharacterFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: CharacterViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        return inflater.inflate(R.layout.character_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

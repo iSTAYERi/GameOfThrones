@@ -2,6 +2,6 @@ package ru.skillbranch.gameofthrones.viewmodels
 
 import androidx.lifecycle.ViewModel
 
-class MainViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class SplashViewModel : ViewModel() {
+
 }

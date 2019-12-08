@@ -6,14 +6,11 @@ import io.realm.RealmConfiguration
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import ru.skillbranch.gameofthrones.AppConfig.DATABASE_SCHEMA_VERSION
 import ru.skillbranch.gameofthrones.db.Migration
 import ru.skillbranch.gameofthrones.di.appModule
 
 class App: Application() {
-
-    companion object {
-        const val DATABASE_SCHEMA_VERSION = 0L
-    }
 
     override fun onCreate() {
         super.onCreate()
@@ -33,5 +30,4 @@ class App: Application() {
             .build()
         Realm.setDefaultConfiguration(realmConfig)
     }
-
 }

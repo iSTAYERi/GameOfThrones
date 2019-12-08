@@ -2,6 +2,7 @@ package ru.skillbranch.gameofthrones
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Assert.assertEquals
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterFull
@@ -152,6 +153,7 @@ class ExampleInstrumentedTest {
         playedBy = emptyList()
     )
 
+    @Ignore
     @Test
     fun insert_house_and_drop_db() {
         //Запись в базу
@@ -189,6 +191,7 @@ class ExampleInstrumentedTest {
         assertEquals(true, needResult2)
     }
 
+    @Ignore
     @Test
     fun insert_characters_and_find() {
         ///Дроп базы
@@ -232,6 +235,7 @@ class ExampleInstrumentedTest {
         assertEquals(stubCharacterLyanna.aliases, actualCharacters?.last()?.aliases)
     }
 
+    @Ignore
     @Test
     fun insert_characters_and_full() {
         ///Дроп базы

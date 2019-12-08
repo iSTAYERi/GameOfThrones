@@ -1,12 +1,19 @@
 package ru.skillbranch.gameofthrones.repositories
 
+import android.util.Log
 import androidx.annotation.VisibleForTesting
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.schedulers.Schedulers
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterFull
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterItem
 import ru.skillbranch.gameofthrones.data.remote.res.CharacterRes
 import ru.skillbranch.gameofthrones.data.remote.res.HouseRes
+import ru.skillbranch.gameofthrones.repositories.server.ServerApiImpl
 
 object RootRepository {
+
+    private val compDisposable = CompositeDisposable()
 
     /**
      * Получение данных о всех домах из сети
@@ -14,7 +21,16 @@ object RootRepository {
      */
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun getAllHouses(result : (houses : List<HouseRes>) -> Unit) {
-        //TODO implement me
+        val repo = ServerRepoImpl(ServerApiImpl())
+        repo.getAllHouses()
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe ({
+                result(it)
+            }, {
+                Log.e("test1", "Fail to getAllHouses", it)
+            })
+            .addTo(compDisposable)
     }
 
     /**
@@ -24,7 +40,16 @@ object RootRepository {
      */
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun getNeedHouses(vararg houseNames: String, result : (houses : List<HouseRes>) -> Unit) {
-        //TODO implement me
+        val repo = ServerRepoImpl(ServerApiImpl())
+        repo.getNeedHouses(houseNames.toList())
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe ({
+                result(it)
+            }, {
+                Log.e("test1", "Fail to getNeedHouses", it)
+            })
+            .addTo(compDisposable)
     }
 
     /**
@@ -34,7 +59,16 @@ object RootRepository {
      */
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun getNeedHouseWithCharacters(vararg houseNames: String, result : (houses : List<Pair<HouseRes, List<CharacterRes>>>) -> Unit) {
-        //TODO implement me
+        val repo = ServerRepoImpl(ServerApiImpl())
+        repo.getNeedHouseWithCharacters(houseNames.toList())
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .subscribe ({
+                result(it)
+            }, {
+                Log.e("test1", "Fail to getNeedHouseWithCharacters", it)
+            })
+            .addTo(compDisposable)
     }
 
     /**
