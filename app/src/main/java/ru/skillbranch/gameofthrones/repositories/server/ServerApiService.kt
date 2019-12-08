@@ -9,9 +9,10 @@ import ru.skillbranch.gameofthrones.data.remote.res.HouseRes
 
 interface ServerApiService {
 
-    @GET("houses?pageSize=50")
+    @GET("houses")
     fun getAllHouses(
-        @Query("page") page: Int
+        @Query("page") page: Int,
+        @Query("pageSize") pageSize: Int = 50
     ): Single<List<HouseRes>>
 
     @GET("houses")

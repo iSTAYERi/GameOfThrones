@@ -48,7 +48,7 @@ class ServerApiImpl: ServerApi {
         val result = mutableListOf<HouseRes>()
         Observable.fromIterable(1..9)
             .flatMapSingle { serverApiService.getAllHouses(it) }
-            .doOnNext { result.addAll(it) }
+            .blockingForEach { result.addAll(it) }
         return Single.just(result)
     }
 

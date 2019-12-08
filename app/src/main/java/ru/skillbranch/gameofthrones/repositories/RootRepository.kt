@@ -2,14 +2,17 @@ package ru.skillbranch.gameofthrones.repositories
 
 import android.util.Log
 import androidx.annotation.VisibleForTesting
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
+import io.realm.Realm
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterFull
 import ru.skillbranch.gameofthrones.data.local.entities.CharacterItem
 import ru.skillbranch.gameofthrones.data.remote.res.CharacterRes
 import ru.skillbranch.gameofthrones.data.remote.res.HouseRes
 import ru.skillbranch.gameofthrones.repositories.server.ServerApiImpl
+import java.util.concurrent.TimeUnit
 
 object RootRepository {
 
@@ -79,7 +82,11 @@ object RootRepository {
      */
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun insertHouses(houses : List<HouseRes>, complete: () -> Unit) {
-        //TODO implement me
+        val repo = RealmRepoImpl()
+        Realm.getDefaultInstance().use { repo.insertHouses(it, houses) }
+        Single.timer(500, TimeUnit.MILLISECONDS)
+            .subscribe ({ complete() }, {})
+            .addTo(compDisposable)
     }
 
     /**
@@ -90,7 +97,13 @@ object RootRepository {
      */
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun insertCharacters(Characters : List<CharacterRes>, complete: () -> Unit) {
-        //TODO implement me
+        val repo = RealmRepoImpl()
+        Realm.getDefaultInstance().use {
+            repo.insertCharacters(it, Characters)
+        }
+        Single.timer(500, TimeUnit.MILLISECONDS)
+            .subscribe ({ complete() }, {})
+            .addTo(compDisposable)
     }
 
     /**
@@ -99,7 +112,11 @@ object RootRepository {
      */
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun dropDb(complete: () -> Unit) {
-        //TODO implement me
+        val repo = RealmRepoImpl()
+        Realm.getDefaultInstance().use { repo.dropDb(it) }
+        Single.timer(500, TimeUnit.MILLISECONDS)
+            .subscribe ({ complete() }, {})
+            .addTo(compDisposable)
     }
 
     /**
@@ -110,7 +127,13 @@ object RootRepository {
      */
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun findCharactersByHouseName(name : String, result: (characters : List<CharacterItem>) -> Unit) {
-        //TODO implement me
+        val repo = RealmRepoImpl()
+        val realm = Realm.getDefaultInstance()
+        val char = repo.findCharactersByHouseName(realm, name)
+        Single.timer(500, TimeUnit.MILLISECONDS)
+            .subscribe ({ result(char) }, {})
+            .addTo(compDisposable)
+
     }
 
     /**
@@ -121,7 +144,13 @@ object RootRepository {
      */
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun findCharacterFullById(id : String, result: (character : CharacterFull) -> Unit) {
-        //TODO implement me
+        val repo = RealmRepoImpl()
+        val realm = Realm.getDefaultInstance()
+        val char = repo.findCharacterFullById(realm, id)
+        Single.timer(500, TimeUnit.MILLISECONDS)
+            .subscribe ({ result(char) }, {})
+            .addTo(compDisposable)
+
     }
 
     /**
@@ -129,7 +158,13 @@ object RootRepository {
      * @param result - колбек о завершении очистки db
      */
     fun isNeedUpdate(result: (isNeed : Boolean) -> Unit){
-        //TODO implement me
+        val repo = RealmRepoImpl()
+        val realm = Realm.getDefaultInstance()
+        val isNeed = repo.isNeedUpdate(realm)
+        Single.timer(500, TimeUnit.MILLISECONDS)
+            .subscribe ({ result(isNeed) }, {})
+            .addTo(compDisposable)
+
     }
 
 }

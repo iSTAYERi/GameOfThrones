@@ -1,5 +1,6 @@
 package ru.skillbranch.gameofthrones.data.local.entities
 
+import io.realm.RealmList
 import io.realm.RealmObject
 
 open class House(
@@ -8,13 +9,14 @@ open class House(
     var region: String? = null,
     var coatOfArms: String? = null,
     var words: String? = null,
-    var titles: List<String>? = null,
-    var seats: List<String>? = null,
+    var titles: RealmList<String>? = null,
+    var seats: RealmList<String>? = null,
     var currentLord: String? = null, //rel
     var heir: String? = null, //rel
     var overlord: String? = null,
     var founded: String? = null,
     var founder: String? = null, //rel
     var diedOut: String? = null,
-    var ancestralWeapons: List<String>? = null
+    var ancestralWeapons: RealmList<String>? = null,
+    var houseId: String? = null
 ) : RealmObject()

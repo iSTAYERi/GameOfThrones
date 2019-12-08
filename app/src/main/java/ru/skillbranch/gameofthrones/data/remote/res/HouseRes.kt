@@ -17,4 +17,18 @@ data class HouseRes(
     val ancestralWeapons: List<String> = listOf(),
     val cadetBranches: List<Any> = listOf(),
     val swornMembers: List<String> = listOf()
-)
+) {
+    companion object {
+        fun getHouseId(houseName: String): String {
+            return when {
+                houseName.contains("Lannister") -> "Lannister"
+                houseName.contains("Targaryen") -> "Targaryen"
+                houseName.contains("Greyjoy") -> "Greyjoy"
+                houseName.contains("Tyrell") -> "Tyrell"
+                houseName.contains("Baratheon") -> "Baratheon"
+                houseName.contains("Martell") -> "Martell"
+                else -> "Stark"
+            }
+        }
+    }
+}
